@@ -113,9 +113,14 @@ We ❤️ contributors!
 
 1. Fork this repository.
 2. Create a new branch:
-
+For a New Feature:
 ```bash
 feature/your-feature-name
+```
+
+For any Bugfix:
+```bash
+bugfix/your-bug
 ```
 
 3. Make your changes.
