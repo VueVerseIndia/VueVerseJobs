@@ -2,7 +2,7 @@
   <div class="relative min-h-screen overflow-hidden bg-gradient-to-b from-green-50 to-white">
 
     <!-- Floating logos - Left and Right side only -->
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none overflow-hidden hidden md:block">
       <div class="mx-auto max-w-7xl px-6 h-full flex flex-col mt-52">
         <div class="flex justify-between">
           <!-- Left side icons -->
@@ -34,59 +34,23 @@
       </div>
     </div>
 
-    <!-- Header -->
-    <header class="border-b border-green-100 bg-white/80 backdrop-blur">
-      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-        <div class="flex items-center gap-3">
-          <img src="../assets/images/vueverse_logo1.png" class="h-10" />
-
-          <div>
-            <h2 class="text-2xl font-bold text-slate-800">
-              VueJobs India
-            </h2>
-          </div>
-        </div>
-
-        <nav class="hidden gap-8 text-sm font-medium md:flex">
-          <a class="hover:text-green-600" href="#">Jobs</a>
-          <a class="hover:text-green-600" href="#">Companies</a>
-          <a class="hover:text-green-600" href="#">Remote Jobs</a>
-        </nav>
-
-        <div>
-            <button
-            class="rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-2 font-semibold text-white transition hover:scale-105"
-          >
-            Sign in
-          </button>
-        </div>
-      </div>
-    </header>
-
     <!-- Hero -->
-    <section class="mx-auto flex min-h-[85vh] max-w-7xl items-center px-6 pb-24 pt-16">
+    <section class="mx-auto flex min-h-[85vh] max-w-7xl items-center px-6 pb-24 pt-12">
 
       <div class="mx-auto max-w-5xl text-center">
 
         <!-- badge -->
-        <div
-          class="mb-8 inline-flex items-center rounded-full border border-green-200 bg-white px-5 py-2 shadow-lg"
-        >
+        <div class="inline-flex items-center rounded-full border border-green-200 bg-white px-5 py-2 shadow-lg">
           🔥 500+ Vue Jobs Available
         </div>
 
         <!-- Logo -->
-        <div class="mb-10 flex justify-center">
-          <img
-            src="../assets/images/vue.svg"
-            class="w-32 drop-shadow-[0_0_80px_rgba(34,197,94,0.7)]"
-          />
+        <div class="my-6 flex justify-center">
+          <img src="../assets/images/vue.svg" class="w-32 drop-shadow-[0_0_80px_rgba(34,197,94,0.7)]" />
         </div>
 
         <!-- Heading -->
-        <h1
-          class="mx-auto max-w-4xl text-6xl font-black leading-tight text-slate-900 md:text-8xl"
-        >
+        <h1 class="mx-auto max-w-4xl text-5xl font-black leading-tight text-slate-900 md:text-8xl">
           Find all the
           <span class="text-green-600">Vue.js Jobs</span>
 
@@ -104,64 +68,26 @@
         </h1>
 
         <!-- Subtitle -->
-        <p
-          class="mx-auto mt-8 max-w-3xl text-xl leading-9 text-slate-600"
-        >
-          India's dedicated platform for Vue.js and Nuxt developers.
-          Discover remote, hybrid and onsite opportunities from top companies
-          and grow your career with the VueVerse community.
+        <p class="mx-auto my-8 max-w-3xl text-xl leading-9 text-slate-600">
+          India's dedicated Vue.js & Nuxt job portal for developers looking for their next opportunity.
         </p>
 
         <!-- Search -->
-        <div
-          class="mx-auto mt-12 flex max-w-3xl rounded-2xl border border-green-100 bg-white p-3 shadow-2xl"
-        >
+        <div class="mx-auto flex max-w-3xl rounded-2xl border border-green-100 bg-white p-3 shadow-2xl">
           <input
+            v-model="searchedKeyWord"
             type="text"
             placeholder="Search Vue.js, Nuxt, TypeScript jobs..."
             class="flex-1 bg-transparent px-4 outline-none"
+            @keydown.enter.prevent="searchJobs"
           />
 
           <button
             class="rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 px-8 py-4 font-semibold text-white transition hover:scale-105"
+            @click="searchJobs"
           >
             Search Jobs
           </button>
-        </div>
-
-        <!-- Stats -->
-        <div class="mt-16 flex justify-center gap-16">
-
-          <div>
-            <h2 class="text-4xl font-bold text-green-600">
-              500+
-            </h2>
-
-            <p class="text-slate-500">
-              Active Jobs
-            </p>
-          </div>
-
-          <div>
-            <h2 class="text-4xl font-bold text-green-600">
-              100+
-            </h2>
-
-            <p class="text-slate-500">
-              Companies
-            </p>
-          </div>
-
-          <div>
-            <h2 class="text-4xl font-bold text-green-600">
-              5K+
-            </h2>
-
-            <p class="text-slate-500">
-              Developers
-            </p>
-          </div>
-
         </div>
 
       </div>
@@ -170,8 +96,7 @@
 
     <footer class="border-t border-green-100 bg-white">
       <div
-        class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-slate-500 md:flex-row"
-      >
+        class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-slate-500 md:flex-row">
         <p>© 2026 Jobs.VueVerse.in. Built with 💚 by VueVerse.</p>
 
         <div class="flex gap-6">
@@ -220,4 +145,16 @@ useHead({
     },
   ],
 })
+
+const searchedKeyWord = ref('');
+
+function searchJobs() {
+  const keyword = searchedKeyWord.value.trim()
+
+  if (!keyword) {
+    return
+  }
+
+  navigateTo(`/jobs?query=${encodeURIComponent(keyword)}&page=1`)
+}
 </script>
